@@ -1,0 +1,55 @@
+diff --git a/src/Device.js b/src/Device.js
+index 1c26b015397f8a751bf212de98638c6d5aa7d25b..dd21dda9a499d4cc31b8b3a67c0a6505d970eeb2 100644
+--- a/src/Device.js
++++ b/src/Device.js
+@@ -1,5 +1,5 @@
+ "use strict";
+-
++var ip = require('ip');
+ var fs = _interopRequireWildcard(require("fs"));
+ var http = _interopRequireWildcard(require("http"));
+ var path = _interopRequireWildcard(require("path"));
+@@ -103,13 +103,14 @@ class Device {
+ 
+   // Root of the project used for relative to absolute source path conversion.
+ 
+-  constructor(id, name, app, socket, projectRoot) {
++  constructor(id, name, app, socket, config) {
+     this._id = id;
+     this._name = name;
+     this._app = app;
+     this._pages = [];
+     this._deviceSocket = socket;
+-    this._projectRoot = projectRoot;
++    this._projectRoot = config.rootDir;
++    this._config = config;
+     this._deviceSocket.on("message", (message) => {
+       const parsedMessage = JSON.parse(message);
+       if (parsedMessage.event === "getPages") {
+@@ -278,6 +279,17 @@ class Device {
+         return;
+       }
+       const parsedPayload = JSON.parse(message.payload.wrappedEvent);
++      if (parsedPayload.params) {
++        const {sourceMapURL, url} = parsedPayload.params;
++      
++        if (sourceMapURL && !url) {
++          const http = this._config.https ? "https" : "http";
++          const host = ip.address();
++          const platform = sourceMapURL.split('platform=')[1].split('&')[0];
++          const httpPathPrefix = `${http}://${host}:${this._config.port}/${platform}`;
++          parsedPayload.params.url = httpPathPrefix + (sourceMapURL.startsWith('/') ? '' : '/') + parsedPayload.params.sourceMapURL.replace('.map', '');
++        }
++      }
+       if (this._debuggerConnection) {
+         // Wrapping just to make flow happy :)
+         this._processMessageFromDevice(parsedPayload, this._debuggerConnection);
+@@ -514,7 +526,7 @@ class Device {
+     if (pathToSource) {
+       let pathIsURL = false;
+       try {
+-        pathIsURL = new URL(pathToSource).hostname == "localhost";
++        pathIsURL = new URL(pathToSource).protocol.startsWith('http');
+       } catch {}
+       if (pathIsURL) {
+         http

@@ -1,0 +1,20 @@
+diff --git a/dist/webpack/plugins/RepackPlugin.js b/dist/webpack/plugins/RepackPlugin.js
+index 2bf3f77eb857fc02e67c3c94260f94fb325d420b..1648aa7f328b894151d10595a400ed123f940f02 100644
+--- a/dist/webpack/plugins/RepackPlugin.js
++++ b/dist/webpack/plugins/RepackPlugin.js
+@@ -122,6 +122,15 @@ class RepackPlugin {
+         filename: '[file].map',
+         append: `//# sourceMappingURL=[url]?platform=${this.config.platform}`
+       }).apply(compiler);
++
++      if (this.config.mode === 'development') {
++        new _webpack.default.SourceMapDevToolPlugin({
++          test: /hot-update\.js$/,
++          include: /hot-update\.js$/,
++          filename: '[file].map',
++          append: `//# sourceMappingURL=[url]?platform=${this.config.platform}`
++        }).apply(compiler);
++      }
+     }
+ 
+     if (this.config.logger) {

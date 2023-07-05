@@ -1,0 +1,12 @@
+import './packages/demo';
+import './packages/aboutUs';
+import './packages/voucher';
+import './packages/secondaryBookList';
+import './packages/autoPayManager';
+// import './packages/topicList';
+import './packages/findMyWaitCoupon';
+import './packages/findRankHorizontal';
+import './packages/findWaitFreeNotice';
+import './packages/blackListManager';
+import './packages/vipGiftReceipt';
+import './packages/limitedFree';

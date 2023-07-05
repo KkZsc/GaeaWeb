@@ -1,0 +1,13 @@
+diff --git a/ios/Fabric/RNCPagerViewComponentView.mm b/ios/Fabric/RNCPagerViewComponentView.mm
+index 8efd1bafd10bc6d77679f93055ac26fc7ba5af5a..121961fd10aea2568839cf789e91dc5a6862fe0e 100644
+--- a/ios/Fabric/RNCPagerViewComponentView.mm
++++ b/ios/Fabric/RNCPagerViewComponentView.mm
+@@ -7,7 +7,7 @@
+ #import <react/renderer/components/RNCViewPager/Props.h>
+ #import <react/renderer/components/RNCViewPager/RCTComponentViewHelpers.h>
+ 
+-#import "RCTFabricComponentsPlugins.h"
++#import "React/RCTFabricComponentsPlugins.h"
+ #import "React/RCTConversions.h"
+ 
+ #import <React/RCTBridge+Private.h>

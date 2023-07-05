@@ -1,0 +1,13 @@
+diff --git a/dist/plugins/wss/servers/HermesInspectorProxy.js b/dist/plugins/wss/servers/HermesInspectorProxy.js
+index ecd52f02a2f4a07f05a3b1ec2ecfa46f216fd278..b87ff3c15a7eec3736bc53c556f87715d9659431 100755
+--- a/dist/plugins/wss/servers/HermesInspectorProxy.js
++++ b/dist/plugins/wss/servers/HermesInspectorProxy.js
+@@ -93,7 +93,7 @@ export class HermesInspectorProxy extends WebSocketServer {
+         const deviceName = searchParams.get('name') ?? 'Unknown';
+         const appName = searchParams.get('app') ?? 'Unknown';
+         const deviceId = this.deviceCounter++;
+-        this.devices.set(deviceId, new Device(deviceId, deviceName, appName, socket, this.config.rootDir));
++        this.devices.set(deviceId, new Device(deviceId, deviceName, appName, socket, this.config));
+         this.fastify.log.info({
+           msg: 'Hermes device connected',
+           deviceId

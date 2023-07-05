@@ -1,0 +1,12 @@
+export const DEFAULT_STRING_VALUE: string = '无';
+export const DEFAULT_STRING_EMPTY: string = '无';
+export const DEFAULT_STRING_NO_DATA: string = '-1';
+export const EMPTY_SRC_PAGE: string = '无';
+export const DEFAULT_INT_ILLEGAL_VALUE: number = -1;
+export const DEFAULT_INT_VALUE: number = 0;
+export const DEFAULT_BOOLEAN_VALUE = false;
+export const DEFAULT_FLOAT_VALUE = 0.0;
+export const DEFAULT_DATETIME_VALUE = '1970-01-01 00:00:00';
+export const DEFAULT_STRING_LIST_VALUE = Array<string>;
+export const SUCCESS = '成功';
+export const FAIL = '失败';

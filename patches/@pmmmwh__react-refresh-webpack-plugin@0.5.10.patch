@@ -1,0 +1,26 @@
+diff --git a/lib/runtime/RefreshUtils.js b/lib/runtime/RefreshUtils.js
+index 98807575d0b894908acc49f7c587a78080861011..4453515de2e7b8276ea40566caf76e66ac10fe6b 100644
+--- a/lib/runtime/RefreshUtils.js
++++ b/lib/runtime/RefreshUtils.js
+@@ -190,7 +190,10 @@ function shouldInvalidateReactRefreshBoundary(prevExports, nextExports) {
+ 
+ var enqueueUpdate = createDebounceUpdate();
+ function executeRuntime(moduleExports, moduleId, webpackHot, refreshOverlay, isTest) {
+-  registerExportsForReactRefresh(moduleExports, moduleId);
++  
++  if (moduleId.indexOf('../react-native') !== 0) {
++    registerExportsForReactRefresh(moduleExports, moduleId);
++  }
+ 
+   if (webpackHot) {
+     var isHotUpdate = !!webpackHot.data;
+@@ -198,8 +201,7 @@ function executeRuntime(moduleExports, moduleId, webpackHot, refreshOverlay, isT
+     if (isHotUpdate) {
+       prevExports = webpackHot.data.prevExports;
+     }
+-
+-    if (isReactRefreshBoundary(moduleExports)) {
++    if (moduleId.indexOf('../react-native') !== 0 && isReactRefreshBoundary(moduleExports)) {
+       webpackHot.dispose(
+         /**
+          * A callback to performs a full refresh if React has unrecoverable errors,
